@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using PhysicalPersonDirectory.Infra.Abstraction.Common;
 
 namespace PhysicalPersonDirectory.Api.Controllers.Base;
 
@@ -21,7 +22,7 @@ public class BaseResponseAttributesActionFilter : IActionModelConvention
 
         foreach (var statusCode in attribute.StatusCodes)
         {
-            action.Filters.Add(new ProducesResponseTypeAttribute(typeof(int),statusCode));
+            action.Filters.Add(new ProducesResponseTypeAttribute(typeof(Result),statusCode));
         }
     }
 }
