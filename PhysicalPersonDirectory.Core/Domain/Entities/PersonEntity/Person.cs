@@ -16,5 +16,5 @@ internal class Person:Entity
     // ReSharper disable once UnassignedGetOnlyAutoProperty
     public City? City { get; }
     // ReSharper disable once CollectionNeverUpdated.Global
-    public List<RelatedPerson> PersonRelations { get; } = new();
+    public List<RelatedPerson> RelatedPersons { get; } = new();
 }

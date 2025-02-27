@@ -14,7 +14,7 @@ internal class RelatedPersonConfiguration:IEntityTypeConfiguration<RelatedPerson
 //-----------------------------------Relationship Config----------------------------------------------------------------------------------
         builder
             .HasOne(pr => pr.Person)
-            .WithMany(p => p.PersonRelations)
+            .WithMany(p => p.RelatedPersons)
             .HasForeignKey("PersonId")
             .OnDelete(DeleteBehavior.Restrict);
         
