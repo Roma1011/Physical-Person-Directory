@@ -43,7 +43,7 @@ internal class PersonConfiguration:IEntityTypeConfiguration<Person>
             .HasMaxLength(50)
             .IsRequired(false);
         
-        builder.Property(p => p.ImagePath)
+        builder.Property(p => p.ImageSource)
             .IsRequired(false);
 
         builder.Property(p => p.Gender)
@@ -57,15 +57,5 @@ internal class PersonConfiguration:IEntityTypeConfiguration<Person>
             .HasForeignKey<Person>(p=>p.CityId)
             .IsRequired(false)
             .OnDelete(DeleteBehavior.SetNull);
-        
-        builder.HasMany(p => p.PersonRelations)
-            .WithOne(pr => pr.Person)
-            .HasForeignKey(pr => pr.PersonId)
-            .OnDelete(DeleteBehavior.Cascade);
-        
-        builder.HasMany(p => p.PersonRelations)
-            .WithOne(pr => pr.RelatedPerson)
-            .HasForeignKey(pr => pr.RelatedPersonId)
-            .OnDelete(DeleteBehavior.Cascade);
     }
 }

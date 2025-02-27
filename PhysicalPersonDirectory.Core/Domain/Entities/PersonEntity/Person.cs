@@ -4,17 +4,17 @@ namespace PhysicalPersonDirectory.Core.Domain.Entities.PersonEntity;
 
 internal class Person:Entity
 {
-    public string Pid { get; internal set; }=null!;
-    public string Name { get; internal set; }=null!;
-    public string Surname { get; internal set; }=null!;
-    public TypeOfPhone? TypeOfPhone { get;internal set; }
-    public string? PhoneNumber { get;internal set; }
-    public string? ImagePath { get;internal set; }
-    public Gender Gender { get;internal set; }
-    public DateOnly DateOfPBirth { get;internal set; }
-    public int? CityId { get; internal set; }
+    public string Pid { get; private set; }=null!;
+    public string Name { get; private set; }=null!;
+    public string Surname { get;  private set; }=null!;
+    public TypeOfPhone? TypeOfPhone { get;private set; }
+    public string? PhoneNumber { get;private set; }
+    public Uri? ImageSource { get;private set; }
+    public Gender Gender { get;private set; }
+    public DateOnly DateOfPBirth { get;private set; }
+    public int? CityId { get; private set; }
     // ReSharper disable once UnassignedGetOnlyAutoProperty
     public City? City { get; }
     // ReSharper disable once CollectionNeverUpdated.Global
-    public List<PersonRelation> PersonRelations { get; } = new();
+    public List<RelatedPerson> PersonRelations { get; } = new();
 }
