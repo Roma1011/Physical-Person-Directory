@@ -10,7 +10,6 @@
     <Folder Include="DAO\Context\SetConfigurations\" />
     <Folder Include="DAO\Migrations\" />
     <Folder Include="DAO\Repositories\" />
-    <Folder Include="Domain\" />
     <Folder Include="DTOs\" />
     <Folder Include="Services\" />
   </ItemGroup>
