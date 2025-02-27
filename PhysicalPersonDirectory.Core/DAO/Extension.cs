@@ -12,7 +12,7 @@ internal static class Extension
     {
         collection.AddDbContext<PhysicalPersonDbContext>(context =>
         {
-            context.UseSqlServer("Data Source=IT-RKEKUA\\SQLEXPRESS;Initial Catalog=Feedback_Db;Trusted_Connection=True;Encrypt=False;");
+            context.UseSqlServer("Data Source=IT-RKEKUA\\SQLEXPRESS;Initial Catalog=PhysicalPersonDb;Trusted_Connection=True;Encrypt=False;");
         });
         collection.AddScoped<IPersonRepository, PersonRepository>();
         return collection;

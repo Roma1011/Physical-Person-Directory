@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DAO\Migrations\" />
     <Folder Include="DTOs\" />
     <Folder Include="Services\" />
   </ItemGroup>
