@@ -5,6 +5,6 @@ namespace PhysicalPersonDirectory.Core.Domain.Entities;
 
 internal class City:Entity
 {
-    public string Name { get; internal set; }=null!;
+    public string Name { get; private set; }=null!;
     public Person Person { get;}
 }
