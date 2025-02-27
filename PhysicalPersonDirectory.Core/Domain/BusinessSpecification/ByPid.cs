@@ -1,4 +1,4 @@
-using PhysicalPersonDirectory.Core.Domain.Entities;
+using PhysicalPersonDirectory.Core.Domain.Entities.PersonEntity;
 using PhysicalPersonDirectory.Infra.Abstraction.Specification;
 
 namespace PhysicalPersonDirectory.Core.Domain.BusinessSpecification;
