@@ -1,9 +1,11 @@
 using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 using PhysicalPersonDirectory.Infra.Abstraction.Common;
 
-namespace PhysicalPersonDirectory.Infra.Abstraction.Specification;
+[assembly:InternalsVisibleTo("PhysicalPersonDirectory.Core")]
 
-public abstract class BaseSpecification<T>where T:Entity
+namespace PhysicalPersonDirectory.Infra.Abstraction.Specification;
+internal abstract class BaseSpecification<T>where T:Entity
 {
     public Expression<Func<T,bool>> Predicate { get; protected set; }
 }

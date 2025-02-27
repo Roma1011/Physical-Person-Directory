@@ -1,11 +1,12 @@
+using System.Runtime.CompilerServices;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using PhysicalPersonDirectory.Infra.Abstraction.Common;
 using PhysicalPersonDirectory.Infra.Abstraction.Specification;
 
+[assembly:InternalsVisibleTo("PhysicalPersonDirectory.Core")]
 namespace PhysicalPersonDirectory.Infra.Persistence.DAL;
-
-public abstract class BaseRepository<T,TDbContext> 
+internal abstract class BaseRepository<T,TDbContext> 
     where T: Entity
     where TDbContext:DbContext
 {
