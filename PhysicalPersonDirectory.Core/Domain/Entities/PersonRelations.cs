@@ -2,13 +2,8 @@ using PhysicalPersonDirectory.Infra.Abstraction.Common;
 
 namespace PhysicalPersonDirectory.Core.Domain.Entities;
 
-public class PersonRelations:Entity
+public class PersonRelations(int personId, int relatedPersonId) : Entity
 {
-    public PersonRelations(int personId, int relatedPersonId)
-    {
-        PersonId = personId;
-        RelatedPersonId = relatedPersonId;
-    }
-    public int PersonId { get; internal set; }
-    public int RelatedPersonId { get; internal set; }
+    public int PersonId { get; internal set; } = personId;
+    public int RelatedPersonId { get; internal set; } = relatedPersonId;
 }
