@@ -10,8 +10,11 @@ internal class Person:Entity
     public TypeOfPhone? TypeOfPhone { get;internal set; }
     public string? PhoneNumber { get;internal set; }
     public string? ImagePath { get;internal set; }
-    public string Gender { get;internal set; }=null!;
+    public Gender Gender { get;internal set; }
     public DateOnly DateOfPBirth { get;internal set; }
     public int? CityId { get; internal set; }
+    // ReSharper disable once UnassignedGetOnlyAutoProperty
     public City? City { get; }
+    // ReSharper disable once CollectionNeverUpdated.Global
+    public List<PersonRelation> PersonRelations { get; } = new();
 }

@@ -8,13 +8,14 @@ internal class PersonConfiguration:IEntityTypeConfiguration<Person>
 {
     public void Configure(EntityTypeBuilder<Person> builder)
     {
+//-----------------------------------Table Config----------------------------------------------------------------------------------
         builder
             .HasKey(p => p.Id)
             .IsClustered();
 
         builder.HasIndex(p => p.Pid)
             .IsUnique();
-        
+//-----------------------------------Properties Config----------------------------------------------------------------------------------        
         builder.Property(p=>p.Name)
             .IsUnicode()
             .HasMaxLength(50)
@@ -43,13 +44,28 @@ internal class PersonConfiguration:IEntityTypeConfiguration<Person>
             .IsRequired(false);
         
         builder.Property(p => p.ImagePath)
-            .HasMaxLength(1000)
             .IsRequired(false);
 
+        builder.Property(p => p.Gender)
+            .HasConversion(gender => gender.ToString(),
+                gender => (Gender)Enum.Parse(typeof(Gender), gender))
+            .HasMaxLength(10)
+            .IsRequired();
+//-----------------------------------Relationship Config----------------------------------------------------------------------------------
         builder.HasOne(p => p.City)
             .WithOne(p=>p.Person)
             .HasForeignKey<Person>(p=>p.CityId)
             .IsRequired(false)
             .OnDelete(DeleteBehavior.SetNull);
+        
+        builder.HasMany(p => p.PersonRelations)
+            .WithOne(pr => pr.Person)
+            .HasForeignKey(pr => pr.PersonId)
+            .OnDelete(DeleteBehavior.Cascade);
+        
+        builder.HasMany(p => p.PersonRelations)
+            .WithOne(pr => pr.RelatedPerson)
+            .HasForeignKey(pr => pr.RelatedPersonId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }
