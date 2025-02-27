@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using PhysicalPersonDirectory.Api.Controllers.Base;
+using PhysicalPersonDirectory.Core.UseCases.DTOs.Request;
 
 namespace PhysicalPersonDirectory.Api.Controllers;
 
@@ -29,6 +30,13 @@ public class PersonController:BaseController
         return Ok();
     }
     
+    [HttpPost(nameof(AddPerson))]
+    [BaseResponseAttributes(200,400,404)]
+    public async Task<IActionResult> AddPerson([FromBody]AddPerson person)
+    {
+        return Ok();
+    }
+    
     [HttpPost(nameof(AddRelationPerson))]
     [BaseResponseAttributes(200,400,404)]
     public async Task<IActionResult> AddRelationPerson([FromQuery][Required] int id)
@@ -50,12 +58,6 @@ public class PersonController:BaseController
         return Ok();
     }
     
-    [HttpPost(nameof(AddPerson))]
-    [BaseResponseAttributes(200,400,404)]
-    public async Task<IActionResult> AddPerson([FromQuery][Required] int id)
-    {
-        return Ok();
-    }
     
     [HttpDelete(nameof(DeletePerson))]
     [BaseResponseAttributes(200,400,404)]
