@@ -2,11 +2,13 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using PhysicalPersonDirectory.Api.Controllers.Base;
 using PhysicalPersonDirectory.Core.UseCases.DTOs.Request;
+using PhysicalPersonDirectory.Core.UseCases.Services.Promises;
+using PhysicalPersonDirectory.Infra.Abstraction.Common;
 
 namespace PhysicalPersonDirectory.Api.Controllers;
 
 [Route(BasePath + "/person")]
-public class PersonController:BaseController
+public class PersonController(IPersonService personService):BaseController
 {
     
     [HttpGet(nameof(SearchPerson))]

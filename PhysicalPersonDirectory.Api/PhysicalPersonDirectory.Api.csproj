@@ -18,9 +18,4 @@
   <ItemGroup>
     <ProjectReference Include="..\PhysicalPersonDirectory.Core\PhysicalPersonDirectory.Core.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\PhysicalPersonDirectory.Core\PhysicalPersonDirectory.Core.csproj" />
-  </ItemGroup>
-
 </Project>
