@@ -7,7 +7,10 @@ builder.Services.AddControllers(controllers =>
 {
     controllers.Conventions.Add(new BaseResponseAttributesActionFilter());
 });
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(swagGen =>
+{
+    swagGen.EnableAnnotations();
+});
 builder.Services.AddCore();
 
 var app=builder.Build();

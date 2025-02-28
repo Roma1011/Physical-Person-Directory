@@ -7,12 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\" />
-    <Folder Include="Services\" />
+    <Folder Include="UseCases\DTOs\Response\" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\PhysicalPersonDirectory.Infra\PhysicalPersonDirectory.Infra.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="7.3.0" />
   </ItemGroup>
 
 </Project>

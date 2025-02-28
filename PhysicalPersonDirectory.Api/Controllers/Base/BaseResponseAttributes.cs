@@ -22,7 +22,7 @@ public class BaseResponseAttributesActionFilter : IActionModelConvention
 
         foreach (var statusCode in attribute.StatusCodes)
         {
-            action.Filters.Add(new ProducesResponseTypeAttribute(typeof(Result),statusCode));
+            action.Filters.Add(new ProducesResponseTypeAttribute(typeof(Result<>),statusCode));
         }
     }
 }
