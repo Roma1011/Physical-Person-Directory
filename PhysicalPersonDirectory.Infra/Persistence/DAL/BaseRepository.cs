@@ -10,25 +10,25 @@ internal abstract class BaseRepository<T,TDbContext>
     where T: Entity
     where TDbContext:DbContext
 {
-    private readonly TDbContext _dbContext;
+    protected readonly TDbContext DbContext;
     protected BaseRepository(TDbContext dbContext)
-        => _dbContext = dbContext;
+        => DbContext = dbContext;
     
     public async Task<T?> GetByIdAsync(int id)
-        => await _dbContext.Set<T>().AsNoTracking().SingleOrDefaultAsync(x=>x.Id==id);
+        => await DbContext.Set<T>().AsNoTracking().SingleOrDefaultAsync(x=>x.Id==id);
     
     public async Task<List<T>> GetAllAsync()
-        => await _dbContext.Set<T>().ToListAsync();
+        => await DbContext.Set<T>().ToListAsync();
     
-    public async Task<bool> IsExistByAnyAsync(BaseSpecification<T> baseSpecification) 
-        => await _dbContext.Set<T>().AnyAsync(baseSpecification.Predicate);
+    public async Task<int> IsExistWithCountAsync(BaseSpecification<T> baseSpecification) 
+        => await DbContext.Set<T>().CountAsync(baseSpecification.Predicate);
     
     public async Task<EntityEntry> AddAsync(T entity)
-        => await _dbContext.AddAsync(entity);
+        => await DbContext.AddAsync(entity);
     
     public Task<EntityEntry> UpdateAsync(T type) 
-        => Task.FromResult<EntityEntry>(_dbContext.Set<T>().Update(type));
+        => Task.FromResult<EntityEntry>(DbContext.Set<T>().Update(type));
     
     public Task<EntityEntry> DeleteAsync(T type) 
-        => Task.FromResult<EntityEntry>(_dbContext.Set<T>().Remove(type));
+        => Task.FromResult<EntityEntry>(DbContext.Set<T>().Remove(type));
 }
