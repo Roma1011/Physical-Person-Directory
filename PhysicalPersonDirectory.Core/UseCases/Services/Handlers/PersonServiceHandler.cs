@@ -2,7 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using PhysicalPersonDirectory.Core.DAO.Repositories.Promises;
 using PhysicalPersonDirectory.Core.Domain.BusinessSpecification;
-using PhysicalPersonDirectory.Core.Domain.Entities;
 using PhysicalPersonDirectory.Core.Domain.Entities.PersonEntity;
 using PhysicalPersonDirectory.Core.UseCases.DTOs.Request;
 using PhysicalPersonDirectory.Core.UseCases.Services.Promises;
@@ -11,7 +10,8 @@ using PhysicalPersonDirectory.Infra.Persistence.DAL;
 
 namespace PhysicalPersonDirectory.Core.UseCases.Services.Handlers;
 
-internal class PersonServiceHandler(IPersonRepository personRepository,IUnitOfWork uow):IPersonService
+internal class PersonServiceHandler(IPersonRepository personRepository,IPersonRelationRepository personRelationRepository,ICityRepository cityRepository,IUnitOfWork uow)
+    :IPersonService
 {
     public async Task<Result<bool>> AddPersonAsync(AddPerson addPerson)
     {
@@ -67,6 +67,19 @@ internal class PersonServiceHandler(IPersonRepository personRepository,IUnitOfWo
         if (entry.State!=EntityState.Modified)
             return new Result<bool>(false,false,null,500);
         
+        await uow.SaveChangesAsync();
+        return new Result<bool>(true,false,null,200);
+    }
+    public async Task<Result<bool>> RemoveRelationPersonAsync(RemoveRelationPerson relationPerson)
+    {
+        Person? person=await personRepository.GetPersonByAggregatedAsync(relationPerson.PersonId);
+        if (person is null)
+            return new Result<bool>(false,false,"Person not found",404);
+        
+        if(person.RelatedPersons.Any(x => x.RelatedPersonId != relationPerson.RelatedPersonId && x.PersonId != relationPerson.PersonId))
+            return new Result<bool>(false,false,"Relation not found",404);
+        
+        await personRelationRepository.DeleteAsync(person.RelatedPersons.First(x => x.RelatedPersonId == relationPerson.RelatedPersonId && x.PersonId == relationPerson.PersonId));
         await uow.SaveChangesAsync();
         return new Result<bool>(true,false,null,200);
     }

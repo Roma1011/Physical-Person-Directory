@@ -15,7 +15,7 @@ internal abstract class BaseRepository<T,TDbContext>
         => DbContext = dbContext;
     
     public async Task<T?> GetByIdAsync(int id)
-        => await DbContext.Set<T>().AsNoTracking().SingleOrDefaultAsync(x=>x.Id==id);
+        => await DbContext.Set<T>().SingleOrDefaultAsync(x=>x.Id==id);
     
     public async Task<List<T>> GetAllAsync()
         => await DbContext.Set<T>().ToListAsync();

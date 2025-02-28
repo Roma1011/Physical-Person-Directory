@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using PhysicalPersonDirectory.Core.Domain.Entities;
 using PhysicalPersonDirectory.Core.Domain.Entities.PersonEntity;
 
 namespace PhysicalPersonDirectory.Core.DAO.Context.SetConfigurations;
