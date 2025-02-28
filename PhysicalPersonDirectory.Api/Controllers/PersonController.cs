@@ -42,8 +42,9 @@ public class PersonController(IPersonService personService):BaseController
     
     [HttpPost(nameof(RemoveRelationPerson))]
     [BaseResponseAttributes(200,400,404)]
-    public async Task<IActionResult> RemoveRelationPerson([FromQuery][Required] int id)
+    public async Task<IActionResult> RemoveRelationPerson(RemoveRelationPerson relationPerson)
     {
+        await personService.RemoveRelationPersonAsync(relationPerson);
         return Ok();
     }
     

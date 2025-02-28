@@ -16,6 +16,8 @@ internal static class Extension
             context.UseSqlServer("Data Source=IT-RKEKUA\\SQLEXPRESS;Initial Catalog=PhysicalPersonDb;Trusted_Connection=True;Encrypt=False;");
         });
         collection.AddScoped<IPersonRepository, PersonRepository>();
+        collection.AddScoped<IPersonRelationRepository,PersonRelationRepository>();
+        collection.AddScoped<ICityRepository,CityRepository>();
         collection.AddScoped<IUnitOfWork>(unit => unit.GetRequiredService<PhysicalPersonDbContext>());
         return collection;
     }
