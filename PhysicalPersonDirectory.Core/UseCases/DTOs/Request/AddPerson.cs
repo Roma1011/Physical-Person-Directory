@@ -22,9 +22,9 @@ public class AddPerson
     public byte? Gender { get; set; }
     
     [Required]
-    public DateTime BirthDate { get; set; }
+    [RegularExpression(@"^\d{4}-\d{2}-\d{2}$", ErrorMessage = "BirthDate must be in the format yyyy-MM-dd.")]
+    public string BirthDate { get; set; } = null!;
     
-    public Uri? ImageSource { get; set; }
     public int? CityId { get; set; }
     [SwaggerSchema(Description = "Gender: 1 = Mobile, 2 = OfficePhone, 3 = HousePhone")]
     [Range(1, 3, ErrorMessage = "Phone Type must be 1 (Mobile), 2 (OfficePhone), or 3 (HousePhone)")]

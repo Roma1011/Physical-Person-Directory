@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using PhysicalPersonDirectory.Api.Controllers.Base;
 using PhysicalPersonDirectory.Core.UseCases.DTOs.Request;
 using PhysicalPersonDirectory.Core.UseCases.Services.Promises;
-using PhysicalPersonDirectory.Infra.Abstraction.Common;
 
 namespace PhysicalPersonDirectory.Api.Controllers;
 
@@ -25,18 +24,12 @@ public class PersonController(IPersonService personService):BaseController
         return Ok();
     }
     
-    [HttpPut(nameof(UpdatePerson))]
-    [BaseResponseAttributes(200,400,404)]
-    public async Task<IActionResult> UpdatePerson([FromQuery][Required] int id)
-    {
-        return Ok();
-    }
-    
     [HttpPost(nameof(AddPerson))]
-    [BaseResponseAttributes(200,400,404)]
+    [BaseResponseAttributes(201,400,404,409)]
     public async Task<IActionResult> AddPerson([FromBody]AddPerson person)
     {
-        return Ok();
+        var serviceResponse=await personService.AddPersonAsync(person);
+        return serviceResponse.StatusCode == 201 ? Ok(serviceResponse) : BadRequest(serviceResponse);
     }
     
     [HttpPost(nameof(AddRelationPerson))]
@@ -55,11 +48,18 @@ public class PersonController(IPersonService personService):BaseController
     
     [HttpPost(nameof(AppendPhoto))]
     [BaseResponseAttributes(200,400,404)]
-    public async Task<IActionResult> AppendPhoto([FromQuery][Required] int id)
+    public async Task<IActionResult> AppendPhoto(AppendImage appendImage)
     {
+        await personService.AppendPhotoAsync(appendImage);
         return Ok();
     }
     
+    [HttpPut(nameof(UpdatePerson))]
+    [BaseResponseAttributes(200,400,404)]
+    public async Task<IActionResult> UpdatePerson([FromQuery][Required] int id)
+    {
+        return Ok();
+    }
     
     [HttpDelete(nameof(DeletePerson))]
     [BaseResponseAttributes(200,400,404)]

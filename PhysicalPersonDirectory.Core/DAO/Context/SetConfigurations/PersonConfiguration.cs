@@ -31,6 +31,8 @@ internal class PersonConfiguration:IEntityTypeConfiguration<Person>
             .IsRequired();
 
         builder.Property(p => p.DateOfPBirth)
+            .HasConversion(birth=>birth.Value,
+                birth=> new DateOfBirth(birth))
             .HasColumnType("date")
             .IsRequired();
 
