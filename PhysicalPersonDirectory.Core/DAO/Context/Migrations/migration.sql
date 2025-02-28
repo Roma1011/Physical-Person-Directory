@@ -37,6 +37,7 @@ GO
 CREATE TABLE [RelatedPersons] (
     [Id] int NOT NULL IDENTITY,
     [PersonId] int NOT NULL,
+    [RelationType] varchar(50) NOT NULL,
     [RelatedPersonId] int NOT NULL,
     CONSTRAINT [PK_RelatedPersons] PRIMARY KEY ([Id]),
     CONSTRAINT [FK_RelatedPersons_Person_PersonId] FOREIGN KEY ([PersonId]) REFERENCES [Person] ([Id]) ON DELETE NO ACTION,

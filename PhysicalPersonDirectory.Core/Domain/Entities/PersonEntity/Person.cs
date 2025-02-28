@@ -32,6 +32,17 @@ internal class Person:Entity
     public string AppendImage(string contentType)
     {
         ImageSource = Guid.NewGuid()+"."+contentType.Substring(contentType.LastIndexOf('/')+1);
-        return ImageSource.ToString();
+        return ImageSource;
+    }
+    public void UpdatePersonalInfo(string pid,string name, string surname, TypeOfPhone? typeOfPhone, string? phoneNumber, Gender? gender, DateOfBirth dateOfPBirth, int? cityId)
+    {
+        Pid = pid;
+        Name = name;
+        Surname = surname;
+        TypeOfPhone = typeOfPhone;
+        PhoneNumber = phoneNumber;
+        Gender = gender;
+        DateOfPBirth = dateOfPBirth;
+        CityId = cityId;
     }
 }

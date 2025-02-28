@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using PhysicalPersonDirectory.Core.Domain.Entities;
+using PhysicalPersonDirectory.Core.Domain.Entities.PersonEntity;
 
 namespace PhysicalPersonDirectory.Core.DAO.Context.SetConfigurations;
 
@@ -10,6 +11,13 @@ internal class RelatedPersonConfiguration:IEntityTypeConfiguration<RelatedPerson
     {
 //-----------------------------------Table Config----------------------------------------------------------------------------------
         builder.HasKey(rl => rl.Id);
+//-----------------------------------Properties Config----------------------------------------------------------------------------------   
+
+        builder.Property(rl => rl.RelationType)
+            .HasConversion(rl=>rl.ToString(),
+                rl=>(RelationType)Enum.Parse(typeof(RelationType),rl))
+            .IsRequired()
+            .HasMaxLength(50);
         
 //-----------------------------------Relationship Config----------------------------------------------------------------------------------
         builder

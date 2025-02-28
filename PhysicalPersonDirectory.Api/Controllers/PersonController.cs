@@ -29,13 +29,14 @@ public class PersonController(IPersonService personService):BaseController
     public async Task<IActionResult> AddPerson([FromBody]AddPerson person)
     {
         var serviceResponse=await personService.AddPersonAsync(person);
-        return serviceResponse.StatusCode == 201 ? Ok(serviceResponse) : BadRequest(serviceResponse);
+        return serviceResponse.StatusCode == 201 ? Created() : BadRequest(serviceResponse);
     }
     
     [HttpPost(nameof(AddRelationPerson))]
     [BaseResponseAttributes(200,400,404)]
-    public async Task<IActionResult> AddRelationPerson([FromQuery][Required] int id)
+    public async Task<IActionResult> AddRelationPerson(AddRelationPerson relationPerson)
     {
+        await personService.AddRelationPersonAsync(relationPerson);
         return Ok();
     }
     
@@ -50,15 +51,16 @@ public class PersonController(IPersonService personService):BaseController
     [BaseResponseAttributes(200,400,404)]
     public async Task<IActionResult> AppendPhoto(AppendImage appendImage)
     {
-        await personService.AppendPhotoAsync(appendImage);
-        return Ok();
+        var serviceResponse=await personService.AppendPhotoAsync(appendImage);
+        return serviceResponse.StatusCode == 200 ? Ok(serviceResponse) : BadRequest(serviceResponse);
     }
     
     [HttpPut(nameof(UpdatePerson))]
     [BaseResponseAttributes(200,400,404)]
-    public async Task<IActionResult> UpdatePerson([FromQuery][Required] int id)
+    public async Task<IActionResult> UpdatePerson(UpdatePerson person)
     {
-        return Ok();
+        var serviceResponse=await personService.UpdatePersonAsync(person);
+        return serviceResponse.StatusCode == 201 ? Ok(serviceResponse) : BadRequest(serviceResponse);
     }
     
     [HttpDelete(nameof(DeletePerson))]
