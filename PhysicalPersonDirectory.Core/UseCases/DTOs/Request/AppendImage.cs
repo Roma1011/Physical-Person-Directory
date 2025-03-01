@@ -7,7 +7,7 @@ public class AppendImage
 {
     [Required]
     [ValidImageType]
-    public IFormFile File { get; set; }
+    public IFormFile Image { get; set; }
     [Required]
     public int PersonId { get; set; }
 }
