@@ -4,6 +4,7 @@ namespace PhysicalPersonDirectory.Core.Domain.Entities.PersonEntity;
 
 internal class Person:Entity
 {
+//--------------------------------------------Initializer--------------------------------------------
     public Person(string pid, string name, string surname, TypeOfPhone? typeOfPhone, string? phoneNumber,Gender? gender,DateOfBirth dateOfPBirth, int? cityId)
     {
         Pid = pid;
@@ -15,6 +16,8 @@ internal class Person:Entity
         DateOfPBirth = dateOfPBirth;
         CityId = cityId;
     }
+//--------------------------------------------Properties--------------------------------------------
+ 
     public string Pid { get; private set; }
     public string Name { get; private set; }
     public string Surname { get;  private set; }
@@ -27,13 +30,18 @@ internal class Person:Entity
     // ReSharper disable once UnassignedGetOnlyAutoProperty
     public City? City { get; }
     // ReSharper disable once CollectionNeverUpdated.Global
-    public List<RelatedPerson> RelatedPersons { get; } = new();
+    public ICollection<RelatedPerson> RelatedPersons { get; private set; } = new List<RelatedPerson>();
+
+    // Relationships where this Person is the target
+    public ICollection<RelatedPerson> RelatedToPersons { get; private set; } = new List<RelatedPerson>();
     
+//--------------------------------------------Methods--------------------------------------------
     public string AppendImage(string contentType)
     {
         ImageSource = Guid.NewGuid()+"."+contentType.Substring(contentType.LastIndexOf('/')+1);
         return ImageSource;
     }
+    
     public void UpdatePersonalInfo(string pid,string name, string surname, TypeOfPhone? typeOfPhone, string? phoneNumber, Gender? gender, DateOfBirth dateOfPBirth, int? cityId)
     {
         Pid = pid;
