@@ -38,8 +38,8 @@ public class PersonController(IPersonService personService)
     [BaseResponseAttributes(200,400,404)]
     public async Task<IActionResult> AddRelationPerson(AddRelationPerson relationPerson)
     {
-        await personService.AddRelationPersonAsync(relationPerson);
-        return Ok();
+        var serviceResponse=await personService.AddRelationPersonAsync(relationPerson);
+        return serviceResponse.StatusCode == 200 ? Ok() : BadRequest(serviceResponse);
     }
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     [HttpPost(nameof(AppendPhoto))]
@@ -47,7 +47,7 @@ public class PersonController(IPersonService personService)
     public async Task<IActionResult> AppendPhoto(AppendImage appendImage)
     {
         var serviceResponse=await personService.AppendPhotoAsync(appendImage);
-        return serviceResponse.StatusCode == 200 ? Ok(serviceResponse) : BadRequest(serviceResponse);
+        return serviceResponse.StatusCode == 200 ? Ok() : BadRequest(serviceResponse);
     }
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     [HttpPut(nameof(UpdatePerson))]
@@ -55,23 +55,23 @@ public class PersonController(IPersonService personService)
     public async Task<IActionResult> UpdatePerson(UpdatePerson person)
     {
         var serviceResponse=await personService.UpdatePersonAsync(person);
-        return serviceResponse.StatusCode == 200 ? Ok(serviceResponse) : BadRequest(serviceResponse);
+        return serviceResponse.StatusCode == 200 ? Ok() : BadRequest(serviceResponse);
     }
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     [HttpPost(nameof(RemoveRelationPerson))]
     [BaseResponseAttributes(200,400,404)]
     public async Task<IActionResult> RemoveRelationPerson(RemoveRelationPerson relationPerson)
     {
-        await personService.RemoveRelationPersonAsync(relationPerson);
-        return Ok();
+        var serviceResponse=await personService.RemoveRelationPersonAsync(relationPerson);
+        return serviceResponse.StatusCode == 200 ? Ok() : BadRequest(serviceResponse);
     }
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     [HttpDelete(nameof(DeletePerson))]
     [BaseResponseAttributes(200,400,404)]
     public async Task<IActionResult> DeletePerson([FromQuery][Required] int id)
     {
-        await personService.RemovePersonAsync(id);
-        return Ok();    
+        var serviceResponse=await personService.RemovePersonAsync(id);
+        return serviceResponse.StatusCode == 200 ? Ok() : BadRequest(serviceResponse);
     }
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 }

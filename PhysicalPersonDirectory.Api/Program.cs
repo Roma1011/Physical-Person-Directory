@@ -20,8 +20,9 @@ var app=builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
+app.UseMiddleware<ErrorHandlerMiddleware>();
+app.UseMiddleware<AcceptLanguageMiddleware>();
 app.UseRouting();
 app.UseAuthentication();
-app.UseMiddleware<AcceptLanguageMiddleware>();
 app.MapControllers();
 app.Run();
