@@ -17,8 +17,8 @@ internal abstract class BaseRepository<T,TDbContext>
     public async Task<T?> GetByIdAsync(int id)
         => await DbContext.Set<T>().SingleOrDefaultAsync(x=>x.Id==id);
     
-    public async Task<List<T>> GetAllAsync()
-        => await DbContext.Set<T>().ToListAsync();
+    protected Task<IQueryable<T>> GetAllAsync()
+        => Task.FromResult(DbContext.Set<T>().AsQueryable());
     
     public async Task<int> IsExistWithCountAsync(BaseSpecification<T> baseSpecification) 
         => await DbContext.Set<T>().CountAsync(baseSpecification.Predicate);
