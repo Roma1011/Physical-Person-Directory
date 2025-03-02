@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using PhysicalPersonDirectory.Core.UseCases.DTOs.Validations;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace PhysicalPersonDirectory.Core.UseCases.DTOs.Request;
@@ -12,10 +13,12 @@ public class UpdatePerson
     
     [Required]
     [MaxLength(50)]
+    [LanguageValidation]
     public string Name { get; set; }=null!;
 
     [Required]
     [MaxLength(50)]
+    [LanguageValidation]
     public string Surname { get; set; }=null!;
     
     [SwaggerSchema(Description = "Gender: 1 = Male, 2 = Female")]
