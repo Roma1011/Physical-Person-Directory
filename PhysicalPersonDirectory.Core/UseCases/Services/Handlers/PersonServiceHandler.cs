@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using PhysicalPersonDirectory.Core.DAO.Repositories.Promises;
-using PhysicalPersonDirectory.Core.Domain.BusinessSpecification;
 using PhysicalPersonDirectory.Core.Domain.Entities.PersonEntity;
+using PhysicalPersonDirectory.Core.Domain.Entities.PersonEntity.BusinessSpecification;
 using PhysicalPersonDirectory.Core.UseCases.DTOs.Request;
 using PhysicalPersonDirectory.Core.UseCases.DTOs.Response;
 using PhysicalPersonDirectory.Core.UseCases.Services.Promises;
@@ -45,6 +45,8 @@ internal class PersonServiceHandler(IPersonRepository personRepository,IPersonRe
             Gender = person.Gender.ToString(),
             GenderId = (byte?)person.Gender,
             BirthDate = person.DateOfPBirth.Value.ToString("yyyy-MM-dd"),
+            CityId = person.CityId,
+            CityName = person.City?.Name,
             TypeOfPhone = person.TypeOfPhone.ToString(),
             TypeOfPhoneId = (byte?)person.TypeOfPhone,
             PhoneNumber = person.PhoneNumber,

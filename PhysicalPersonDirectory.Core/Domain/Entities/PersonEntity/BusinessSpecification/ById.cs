@@ -1,7 +1,6 @@
-using PhysicalPersonDirectory.Core.Domain.Entities.PersonEntity;
 using PhysicalPersonDirectory.Infra.Abstraction.Specification;
 
-namespace PhysicalPersonDirectory.Core.Domain.BusinessSpecification;
+namespace PhysicalPersonDirectory.Core.Domain.Entities.PersonEntity.BusinessSpecification;
 
 internal class ById:BaseSpecification<Person>
 {

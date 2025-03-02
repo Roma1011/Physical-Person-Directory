@@ -31,5 +31,14 @@ internal class RelatedPersonConfiguration:IEntityTypeConfiguration<RelatedPerson
             .WithMany(p => p.RelatedToPersons)
             .HasForeignKey(pr => pr.RelatedPersonId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasData(
+            new RelatedPerson(1, 2, RelationType.Colleague) { Id = 1 },
+            new RelatedPerson(3, 4, RelationType.Familiar) { Id = 2 },
+            new RelatedPerson(5, 6, RelationType.Other) { Id = 3 },
+            new RelatedPerson(7, 8, RelationType.Other) { Id = 4 },
+            new RelatedPerson(9, 10, RelationType.Other) { Id = 5 }
+        );
+
     }
 }

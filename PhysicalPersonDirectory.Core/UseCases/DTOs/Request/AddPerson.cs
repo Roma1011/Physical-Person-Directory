@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using PhysicalPersonDirectory.Core.UseCases.DTOs.Validations;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace PhysicalPersonDirectory.Core.UseCases.DTOs.Request;
@@ -6,15 +7,20 @@ namespace PhysicalPersonDirectory.Core.UseCases.DTOs.Request;
 public class AddPerson
 {
     [Required]
-    [MaxLength(12)]
+    [MinLength(11)]
+    [MaxLength(11)]
     public string Pid { get; set; }=null!;
     
     [Required]
+    [MinLength(2)]
     [MaxLength(50)]
+    [LanguageValidation]
     public string Name { get; set; }=null!;
 
     [Required]
+    [MinLength(2)]
     [MaxLength(50)]
+    [LanguageValidation]
     public string Surname { get; set; }=null!;
     
     [SwaggerSchema(Description = "Gender: 1 = Male, 2 = Female")]
@@ -29,5 +35,7 @@ public class AddPerson
     [SwaggerSchema(Description = "Gender: 1 = Mobile, 2 = OfficePhone, 3 = HousePhone")]
     [Range(1, 3, ErrorMessage = "Phone Type must be 1 (Mobile), 2 (OfficePhone), or 3 (HousePhone)")]
     public int? TypeOfPhone { get; set; }
+    [MinLength(4)]
+    [MaxLength(50)]
     public string? PhoneNumber{ get; set; }
 }
