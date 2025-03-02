@@ -32,6 +32,7 @@ internal class RelatedPersonConfiguration:IEntityTypeConfiguration<RelatedPerson
             .HasForeignKey(pr => pr.RelatedPersonId)
             .OnDelete(DeleteBehavior.Restrict);
 
+        #region Relations Seed
         builder.HasData(
             new RelatedPerson(1, 2, RelationType.Colleague) { Id = 1 },
             new RelatedPerson(3, 4, RelationType.Familiar) { Id = 2 },
@@ -39,6 +40,8 @@ internal class RelatedPersonConfiguration:IEntityTypeConfiguration<RelatedPerson
             new RelatedPerson(7, 8, RelationType.Other) { Id = 4 },
             new RelatedPerson(9, 10, RelationType.Other) { Id = 5 }
         );
+        #endregion
+
 
     }
 }

@@ -59,7 +59,7 @@ internal class PersonConfiguration:IEntityTypeConfiguration<Person>
             .HasForeignKey<Person>(p=>p.CityId)
             .IsRequired(false)
             .OnDelete(DeleteBehavior.SetNull);
-        
+        #region Person Seed
         builder.HasData(
             new Person("01001000001", "გიორგი", "აბაშიძე", TypeOfPhone.Mobile, "599123456", Gender.Male, new DateOfBirth(new DateOnly(1985, 11, 25)), 1) { Id = 1 },
             new Person("01001000002", "მარიამ", "ბერიძე", TypeOfPhone.Mobile, "577654321", Gender.Female, new DateOfBirth(new DateOnly(1995, 5, 3)), 2) { Id = 2 },
@@ -72,6 +72,6 @@ internal class PersonConfiguration:IEntityTypeConfiguration<Person>
             new Person("01001000009", "გიორგი", "კახიძე", TypeOfPhone.HousePhone, "2667788", Gender.Male, new DateOfBirth(new DateOnly(1985, 8, 25)), 9) { Id = 9 },
             new Person("01001000010", "ნინო", "ლომიძე", TypeOfPhone.OfficePhone, "355667788", Gender.Female, new DateOfBirth(new DateOnly(1985, 8, 25)), 10) { Id = 10 }
         );
-
+        #endregion
     }
 }
