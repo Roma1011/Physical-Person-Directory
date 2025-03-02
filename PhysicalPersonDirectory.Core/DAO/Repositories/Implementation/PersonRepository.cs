@@ -11,6 +11,22 @@ internal class PersonRepository:BaseRepository<Person,PhysicalPersonDbContext>,I
 {
     public PersonRepository(PhysicalPersonDbContext dbContext) : base(dbContext) {}
 
+    public async Task<List<Person>> GetAllMatchedPersonBySpecificationAsync(BaseSpecification<Person> baseSpecification)
+    {
+        var query=await base.GetAllAsync();
+        query = query.Where(baseSpecification.Predicate);
+        
+        if (baseSpecification.Skip.HasValue)
+        {
+            query = query.Skip(baseSpecification.Skip.Value);
+        }
+        if (baseSpecification.Take.HasValue)
+        {
+            query = query.Take(baseSpecification.Take.Value);
+        }
+        return await query.ToListAsync();
+    }
+
     public async Task<List<Person>> GetAllPersonBySpecificationAsync(BaseSpecification<Person>baseSpecification)
     {
          var result=await base.GetAllAsync();

@@ -15,47 +15,61 @@ internal class PersonServiceHandler(IPersonRepository personRepository,IPersonRe
     :IPersonService
 {
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-public async Task<Result<GetPerson>> GetPersonByIdAsync(int id)
-{
-    Person? person =await personRepository.GetPersonByAggregatedAsync(id);
-    if (person is null)
-        return new Result<GetPerson>(false,null,"Person not found",404);
-    PersonImageRepository personImageRepository = new PersonImageRepository();
-    byte[]?image=await personImageRepository.GetAsync(person.ImageSource);
-    
-    GetPerson getPerson = new GetPerson
+    public async Task<Result<List<PersonOverhead>>> SearchPersonAsync(string searchTerm, bool isDeepSearch,int pageNumber = 1, int pageSize = 10)
     {
-        Pid = person.Pid,
-        Name = person.Name,
-        Surname = person.Surname,
-        Gender = person.Gender.ToString(),
-        GenderId = (byte?)person.Gender,
-        BirthDate = person.DateOfPBirth.Value.ToString("yyyy-MM-dd"),
-        TypeOfPhone = person.TypeOfPhone.ToString(),
-        TypeOfPhoneId = (byte?)person.TypeOfPhone,
-        PhoneNumber = person.PhoneNumber,
-        Image = image,
-        RelatedPersons = person.RelatedPersons.Any() ? 
-            person.RelatedPersons.Select(x => new PersonOverhead
-            {
-                Id = x.RelatedPersonId,
-                Pid = x.Related.Pid,
-                Name = x.Related.Name,
-                Surname = x.Related.Surname
-            }).ToList() :  
-            person.RelatedToPersons.Select(x => new PersonOverhead
-            {
-                Id = x.PersonId,
-                Pid = x.Person.Pid,
-                Name = x.Person.Name,
-                Surname = x.Person.Surname
-            }).ToList()
-    };
-    
-    return new Result<GetPerson>(true,getPerson,null,200);
-}
+        var searchResult=await personRepository.GetAllMatchedPersonBySpecificationAsync(new BySearch(searchTerm,isDeepSearch,pageNumber,pageSize));
+        var personOverhead=searchResult.Select(per => new PersonOverhead
+        {
+            Id = per.Id,
+            Pid = per.Pid,
+            Name = per.Name,
+            Surname = per.Surname
+        }).ToList();
+        return new Result<List<PersonOverhead>>(true, personOverhead, null, 200);
+    }
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-public async Task<Result<bool>> AddPersonAsync(AddPerson addPerson)
+    public async Task<Result<GetPerson>> GetPersonByIdAsync(int id)
+    {
+        Person? person =await personRepository.GetPersonByAggregatedAsync(id);
+        if (person is null)
+            return new Result<GetPerson>(false,null,"Person not found",404);
+        
+        PersonImageRepository personImageRepository = new PersonImageRepository();
+        byte[]?image=await personImageRepository.GetAsync(person.ImageSource);
+        
+        GetPerson getPerson = new GetPerson
+        {
+            Pid = person.Pid,
+            Name = person.Name,
+            Surname = person.Surname,
+            Gender = person.Gender.ToString(),
+            GenderId = (byte?)person.Gender,
+            BirthDate = person.DateOfPBirth.Value.ToString("yyyy-MM-dd"),
+            TypeOfPhone = person.TypeOfPhone.ToString(),
+            TypeOfPhoneId = (byte?)person.TypeOfPhone,
+            PhoneNumber = person.PhoneNumber,
+            Image = image,
+            RelatedPersons = person.RelatedPersons.Any() ? 
+                person.RelatedPersons.Select(x => new PersonOverhead
+                {
+                    Id = x.RelatedPersonId,
+                    Pid = x.Related.Pid,
+                    Name = x.Related.Name,
+                    Surname = x.Related.Surname
+                }).ToList() :  
+                person.RelatedToPersons.Select(x => new PersonOverhead
+                {
+                    Id = x.PersonId,
+                    Pid = x.Person.Pid,
+                    Name = x.Person.Name,
+                    Surname = x.Person.Surname
+                }).ToList()
+        };
+        
+        return new Result<GetPerson>(true,getPerson,null,200);
+    }
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    public async Task<Result<bool>> AddPersonAsync(AddPerson addPerson)
     {
         if (await personRepository.IsExistWithCountAsync(new ByPid(addPerson.Pid)) > 0)
             return new Result<bool>(false,false,"Person already exists",409);
