@@ -58,3 +58,20 @@ Handles external concerns such as data persistence and third-party services.
 🔹 Third-Party Libraries
 
     Includes external libraries or services integrated into the system.
+
+
+## Migration Strategy and Execution Plan
+
+1️⃣ Folder Structure Overview
+
+📂 DAO/Context/Migrations/
+
+    In your DAO (Data Access Object) Layer, migrations are stored under:
+
+    20250302172749_Initial_Physical_Person_Context.cs → Migration file containing schema changes.
+
+    migration.sql → SQL script generated for the migration.
+    
+    PhysicalPersonDbContextModelSnapshot.cs → Snapshot of the latest migration state.
+![image](https://github.com/user-attachments/assets/a1979a75-696f-407d-b5d5-e05e1fa6daa0)
+
