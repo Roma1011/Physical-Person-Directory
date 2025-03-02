@@ -28,7 +28,7 @@ public class PersonController(IPersonService personService)
     }
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     [HttpPost(nameof(AddPerson))]
-    [BaseResponseAttributes(201,400,404,409)]
+    [BaseResponseAttributes(200,400,404,409)]
     public async Task<IActionResult> AddPerson([FromBody]AddPerson person)
     {
         var serviceResponse=await personService.AddPersonAsync(person);
@@ -59,7 +59,7 @@ public class PersonController(IPersonService personService)
         return serviceResponse.IsSuccess ? Ok(serviceResponse) : BadRequest(serviceResponse);
     }
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    [HttpPost(nameof(RemoveRelationPerson))]
+    [HttpDelete(nameof(RemoveRelationPerson))]
     [BaseResponseAttributes(200,400,404)]
     public async Task<IActionResult> RemoveRelationPerson(RemoveRelationPerson relationPerson)
     {
