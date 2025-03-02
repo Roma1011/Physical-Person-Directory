@@ -45,6 +45,8 @@ internal class PersonServiceHandler(IPersonRepository personRepository,IPersonRe
             Gender = person.Gender.ToString(),
             GenderId = (byte?)person.Gender,
             BirthDate = person.DateOfPBirth.Value.ToString("yyyy-MM-dd"),
+            CityId = person.CityId,
+            CityName = person.City?.Name,
             TypeOfPhone = person.TypeOfPhone.ToString(),
             TypeOfPhoneId = (byte?)person.TypeOfPhone,
             PhoneNumber = person.PhoneNumber,
