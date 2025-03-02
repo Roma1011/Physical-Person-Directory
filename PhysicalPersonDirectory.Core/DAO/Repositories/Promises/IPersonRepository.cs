@@ -6,6 +6,8 @@ namespace PhysicalPersonDirectory.Core.DAO.Repositories.Promises;
 
 internal interface IPersonRepository
 {
+    public Task<List<Person>> GetAllMatchedPersonBySpecificationAsync(BaseSpecification<Person> baseSpecification);
+    public Task<List<Person>> GetAllPersonBySpecificationAsync(BaseSpecification<Person> baseSpecification);
     public Task<Person?> GetPersonByAggregatedAsync(int id);
     public Task<Person?> GetByIdAsync(int id);
     public Task<int> IsExistWithCountAsync(BaseSpecification<Person> baseSpecification);

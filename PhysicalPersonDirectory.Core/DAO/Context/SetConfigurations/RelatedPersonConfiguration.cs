@@ -8,9 +8,9 @@ internal class RelatedPersonConfiguration:IEntityTypeConfiguration<RelatedPerson
 {
     public void Configure(EntityTypeBuilder<RelatedPerson> builder)
     {
-//-----------------------------------Table Config----------------------------------------------------------------------------------
-        builder.HasKey(rl => rl.Id);
-//-----------------------------------Properties Config----------------------------------------------------------------------------------   
+//-----------------------------------Table Config-----------------------------------------------------------------------------------------
+        builder.HasKey(rp => new { rp.PersonId, rp.RelatedPersonId });
+//-----------------------------------Properties Config------------------------------------------------------------------------------------ 
 
         builder.Property(rl => rl.RelationType)
             .HasConversion(rl=>rl.ToString(),
@@ -22,13 +22,14 @@ internal class RelatedPersonConfiguration:IEntityTypeConfiguration<RelatedPerson
         builder
             .HasOne(pr => pr.Person)
             .WithMany(p => p.RelatedPersons)
-            .HasForeignKey("PersonId")
+            .HasForeignKey(pr => pr.PersonId)
             .OnDelete(DeleteBehavior.Restrict);
-        
+
+        // Relationship where this Person is the target
         builder
             .HasOne(pr => pr.Related)
-            .WithMany() 
-            .HasForeignKey("RelatedPersonId")
+            .WithMany(p => p.RelatedToPersons)
+            .HasForeignKey(pr => pr.RelatedPersonId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }
