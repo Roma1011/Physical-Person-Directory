@@ -75,3 +75,16 @@ Handles external concerns such as data persistence and third-party services.
     PhysicalPersonDbContextModelSnapshot.cs → Snapshot of the latest migration state.
 ![image](https://github.com/user-attachments/assets/a1979a75-696f-407d-b5d5-e05e1fa6daa0)
 
+## Apply Migration to the Database
+    dotnet ef database update --startup-project . --project ../PhysicalPersonDirectory.Core
+
+
+After the command is executed, the database will be created Or use the sql generated script
+
+    📌 Make sure that DbContext UseSql Server is using the correct ConnectionString
+    
+![image](https://github.com/user-attachments/assets/cc5093b5-7a8d-4c81-b180-adf3fdf9fb02)
+
+Or use Backup
+
+
