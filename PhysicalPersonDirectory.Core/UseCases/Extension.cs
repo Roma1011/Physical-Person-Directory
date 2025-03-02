@@ -9,6 +9,8 @@ public static class Extension
     public static IServiceCollection AddUseCases(this IServiceCollection collection)
     {
         collection.AddScoped<IPersonService, PersonServiceHandler>();
+        collection.AddScoped<ICityService, CityServiceHandler>();
+
         return collection;
     }
 }
