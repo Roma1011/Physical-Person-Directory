@@ -8,15 +8,18 @@ public class UpdatePerson
 {
     public int Id { get; set; }
     [Required]
-    [MaxLength(12)]
+    [MinLength(11)]
+    [MaxLength(11)]
     public string Pid { get; set; }=null!;
     
     [Required]
+    [MinLength(2)]
     [MaxLength(50)]
     [LanguageValidation]
     public string Name { get; set; }=null!;
 
     [Required]
+    [MinLength(2)]
     [MaxLength(50)]
     [LanguageValidation]
     public string Surname { get; set; }=null!;
@@ -33,5 +36,7 @@ public class UpdatePerson
     [SwaggerSchema(Description = "Gender: 1 = Mobile, 2 = OfficePhone, 3 = HousePhone")]
     [Range(1, 3, ErrorMessage = "Phone Type must be 1 (Mobile), 2 (OfficePhone), or 3 (HousePhone)")]
     public int? TypeOfPhone { get; set; }
+    [MinLength(4)]
+    [MaxLength(50)]
     public string? PhoneNumber{ get; set; }
 }
