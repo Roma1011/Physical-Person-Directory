@@ -20,10 +20,9 @@ public class PersonImageRepository
                 await content.CopyToAsync(fileStream);
             }
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            return true;
-
+            return false;
         }
         return true;
     }
@@ -48,10 +47,9 @@ public class PersonImageRepository
             }
             return result;
         }
-        catch (Exception e)
+        catch (Exception)
         {
             return null;
-
         }
     }
 }
